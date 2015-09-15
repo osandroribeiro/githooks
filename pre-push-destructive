@@ -1,0 +1,14 @@
+#!/bin/bash
+# Prevents destructive actions (force-pushing and delete) to specific branches
+
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+PUSH_COMMAND=`ps -ocommand= -p $PPID`
+PROTECTED_BRANCHES="^(master|develop|release-*)"
+DESTRUCTIVE_ACTIONS="force|delete|-f|:"
+
+if [[ "$BRANCH" =~ $PROTECTED_BRANCHES && "$PUSH_COMMAND" =~ $DESTRUCTIVE_ACTIONS ]]; then
+  echo "Warning: Prevented destructive action to protected branch \"$BRANCH\" by pre-push hook!"
+  exit 1
+fi
+
+exit 0
