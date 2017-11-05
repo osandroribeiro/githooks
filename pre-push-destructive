@@ -3,7 +3,7 @@
 
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 PUSH_COMMAND=`ps -ocommand= -p $PPID`
-PROTECTED_BRANCHES="^(master|develop|release-*)"
+PROTECTED_BRANCHES="^(master|develop|release*|stable*)"
 DESTRUCTIVE_ACTIONS="force|delete|-f|:"
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES && "$PUSH_COMMAND" =~ $DESTRUCTIVE_ACTIONS ]]; then
